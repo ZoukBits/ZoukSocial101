@@ -11,6 +11,9 @@
     --brown: #552817;
     --beige: #FDF0D9;
     --black: #000000;
+
+    --tab-inactive: #F7F3EB;
+    --tab-active: #E6D3B1;
   }
 
   * {
@@ -30,12 +33,10 @@
     margin: 0 auto;
   }
 
-  /* ---- text block at top ---- */
+  /* ---- intro ---- */
 
   .intro {
-    margin-bottom: 60px;
-    padding-bottom: 30px;
-    border-bottom: 2px solid var(--brown);
+    margin-bottom: 20px;
   }
 
   h1 {
@@ -48,7 +49,6 @@
   .tagline {
     font-size: 1.2rem;
     margin-bottom: 25px;
-    color: var(--black);
   }
 
   .description {
@@ -62,6 +62,39 @@
     height: 4px;
     background: var(--orange);
     margin: 25px 0;
+  }
+
+  /* ---- tabs ---- */
+
+  .tabs {
+    display: flex;
+    border-bottom: 2px solid var(--brown);
+    padding-left: 10px;
+    margin-bottom: 30px;
+  }
+
+  .tab {
+    padding: 12px 22px;
+    cursor: pointer;
+    background: var(--tab-inactive);
+    color: var(--black);
+    font-weight: bold;
+    border: 2px solid var(--brown);
+    border-bottom: none;
+    margin-right: 10px;
+  }
+
+  .tab.active {
+    background: var(--tab-active);
+    color: var(--orange);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
   }
 
   /* ---- images ---- */
@@ -78,7 +111,7 @@
     display: block;
   }
 
-  /* ---- footer links ---- */
+  /* ---- footer ---- */
 
   footer {
     margin-top: 60px;
@@ -90,12 +123,9 @@
   footer a {
     color: var(--brown);
     text-decoration: none;
-    margin-right: 20px;
-    border-bottom: 1px solid transparent;
   }
 
   footer a:hover {
-    border-bottom: 1px solid var(--orange);
     color: var(--orange);
   }
 </style>
@@ -106,41 +136,85 @@
 <div class="container">
 
   <div class="intro">
-    <h1>Zouk Social 101</h1>
+    <h1>Beginner Courses</h1>
     <div class="accent-line"></div>
 
-    <p class="tagline">
-      with ZoukBits
-    </p>
+    <p class="tagline">by ZoukBits</p>
 
     <p class="description">
-      Learn Brazilian Zouk and how to have fun in Social Dances <br>
+      <b>Intro:</b> We design our courses for beginners from many different backgrounds.
+      Our aim is to open the door into the Zouk community of Munich, while giving everyone space for their own ideas and personal growth.
+      Alongside solid technique, each course therefore comes with a special focus — a small extra that encourages you to explore Zouk your own way. <br>
       <b>Registration:</b> E-Mail at zoukbits@zoukmunich.com (optional) <br>
       <b>Payment:</b> Cash or PayPal at your first class<br>
-      <b>Directions:</b> see below<br>
-      We're looking forward to dancing with you :)<br>
-      🔥 Check out the 50% offer! ⬇️
+      <b>Missed the start of a course?</b> No problem! All our courses are drop-in: you can join at any time.<br>
+      <br>
+      🔥 <b>Check out the 50% offer!</b> ⬇️ <br>
     </p>
-    </p>
-
-  <div class="image-block">
-    <img src="image1.png" alt="Dance course image 1">
   </div>
 
-  <div class="image-block">
-    <img src="image2.png" alt="Dance course image 2">
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="openTab('tab_nutshell', this)">Zouk in a Nutshell</div>
+    <div class="tab" onclick="openTab('tab_social101', this)">Zouk Social 101</div>
+    <div class="tab" onclick="openTab('tab_directions', this)">Directions</div>
   </div>
 
-  <div class="image-block">
-    <img src="directions1.png" alt="Dance course image 3">
-  </div>
-
-    <p>
-      Back:
-      <a href="https://www.linktr.ee/zoukbits" target="_blank">LinkTree</a>
+  <!-- TAB CONTENT 1 -->
+  <div id="tab_nutshell" class="tab-content active">
+    <p class="description">
+      Get an overview over all big concepts of Brazilian Zouk and build a map for your future journey! <br>
+      <b>Next Course:</b> March & April 2026
     </p>
+    <div class="image-block">
+      <img src="img_nutshell_1.png" alt="img_nutshell_1">
+    </div>
+    <div class="image-block">
+      <img src="img_nutshell_2.png" alt="img_nutshell_2">
+    </div>
+  </div>
+
+  <!-- TAB CONTENT 2 -->
+  <div id="tab_social101" class="tab-content">
+    <p class="description">
+      Start with Brazilian Zouk and learn how to have fun in Social Dances from the very beginning! <br>
+      <b>Next Course:</b> January & February 2026
+    </p>
+    <div class="image-block">
+      <img src="image1.png" alt="Dance course image 1">
+    </div>
+    <div class="image-block">
+      <img src="image2.png" alt="Dance course image 2">
+    </div>
+  </div>
+
+  <!-- TAB CONTENT 4 -->
+  <div id="tab_directions" class="tab-content">
+    <div class="image-block">
+      <img src="directions1.png" alt="Directions image">
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Back:
+    <a href="https://www.linktr.ee/zoukbits" target="_blank">LinkTree</a>
+  </footer>
 
 </div>
+
+<script>
+  function openTab(tabId, tabElement) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    tabElement.classList.add('active');
+  }
+</script>
 
 </body>
 </html>
